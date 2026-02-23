@@ -1,7 +1,10 @@
+import * as path from 'path';
 import type { Knex } from 'knex';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
+
+const rootDir = path.resolve(__dirname, '..', '..');
 
 const config: { [key: string]: Knex.Config } = {
   development: {
@@ -14,11 +17,11 @@ const config: { [key: string]: Knex.Config } = {
       password: process.env.DB_PASSWORD || 'postgres',
     },
     migrations: {
-      directory: './src/migrations',
+      directory: path.join(rootDir, 'src', 'migrations'),
       extension: 'ts',
     },
     seeds: {
-      directory: './src/seeds',
+      directory: path.join(rootDir, 'src', 'seeds'),
       extension: 'ts',
     },
     debug: true, // logs every SQL query — very useful while learning
